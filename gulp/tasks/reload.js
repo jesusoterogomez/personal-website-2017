@@ -7,9 +7,13 @@ gulp.task('reload', ['build'], function() {
 });
 
 gulp.task('reload:styles', ['styles'], function() {
-    sync.reload();
+    // Don't refresh to live update styles
 });
 
 gulp.task('reload:html', ['html'], function() {
+    sync.reload();
+});
+
+gulp.task('reload:scripts', ['browserify'], function() {
     sync.reload();
 });

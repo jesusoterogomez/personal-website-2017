@@ -15,34 +15,313 @@
 
 /** 1: Imports
 =========================================================*/
+$degrees: 4deg;
 
 @import "./fonts"; // Imports CSS Fonts, such as Google fonts
 @import "./normalize"; // Normalizes CSS for a Browser Compatible CSS Baseline
 @import "./mixins";
 @import "./variables";
+@import "./components/all";
 
 /** 1: Default Styling
 =========================================================*/
 
 body {
-    font-family: $lato;
-    background: $gray-light;
-    width: 100%;
+    overflow-x: hidden;
+    background: #2C3250;
+    color: #FFF;
+    font-family: $gotham-medium;
+    box-sizing: border-box;
+    position: relative;
 }
 
-.content {
-    margin: $default-margin;
-    padding: $default-padding;
-    background: $color-white;
-    border-radius: $default-radius;
-    text-align: center;
-    border: 1px solid $gray-border;
+// Normalize a tags
+a {
+    color: $color-white;
+    text-decoration: none;
 }
 
-.content-header {
-    border-bottom: 1px solid $gray-border;
-    h1 {
-        text-transform: uppercase;
+a.link {
+    // @include color-gradient(0%, 100%)
+    color: $color-white;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    margin: 0 2px; 
+    padding: 0 1px;
+    @include transition(0.2s);
+    &:after {
+        @include transition(0.2s);
+        position: absolute;
+        bottom: 0;
+        left: -3px;
+        right: -3px;
+        top: -3px;
+        content: "";
+        display: block;
+        transform: scale(1, 0.15);
+        opacity: 0.5;
+        transform-origin: center bottom;
+        @include gradient(0%, 100%);
+    }
+
+    &:before {
+        height: 2px;
+        position: absolute;
+        content: "";
+        bottom: 0;
+        left: -3px;
+        right: -3px;
+        display: block;
+        background: $color-white;
+        @include transition(0.5s);
+        opacity: 1;
+        z-index: 1;
+    }
+
+    &:hover {
+        &:before {
+            @include transition(0.2s);
+            opacity: 0;
+        }
+
+        &:after {
+            z-index: -1;
+            transform: scale(1, 1);
+            @include transition(0.2s);
+            opacity: 1;
+            transform-origin: center bottom;
+            pointer-events: none;
+        }
     }
 }
 
+h4 + p {
+    margin-top: $default-margin/2;
+}
+
+p {
+    margin: $default-margin*1.5 0;
+    // line-height: 1.7em;
+    font-family: GothamMedium;
+    font-size: 18px;
+    color: #FFFFFF;
+    letter-spacing: 0.8px;
+    line-height: 28px;
+}
+
+.content {
+    box-sizing: border-box;
+    font-family: $gotham-medium;
+    line-height: 120%;
+    position: relative;
+    width: 100%;
+}
+
+section {
+    padding: $default-padding $default-padding*2;
+    margin: 0 auto;
+    max-width: 580px;
+    h4 {
+        color: #6B6F84;
+        text-transform: uppercase;
+        font-size: 10pt;
+        margin: 0;
+    }
+}
+
+
+.crossing-lines {
+    position: relative;
+    padding: $default-padding*4;
+    &:after {
+        position: absolute;
+        content: '';
+        display: block;
+        width: 150%;
+        left: -25%;
+        top: 40px;
+        height: 2px;
+        transform: rotate(-($degrees));
+        @include gradient(0%, 100%);
+    }
+
+    &:before {
+        position: absolute;
+        content: '';
+        display: block;
+        width: 150%;
+        left: -25%;
+        transform: rotate($degrees);
+        @include gradient(0%, 100%);
+        height: 2px;
+    }
+
+    &.variation {
+        &:after {
+            top: 60px;
+        }
+    }
+}
+
+
+.single-line {
+    position: relative;
+    padding: $default-padding*4;
+    &:before {
+        position: absolute;
+        content: '';
+        display: block;
+        width: 150%;
+        left: -25%;
+        transform: rotate($degrees);
+        @include gradient(0%, 100%);
+        height: 2px;
+    }
+}
+
+.slanted-header {
+    svg {
+        display: none;
+        position: absolute;
+        right: 0.4em;
+        top: 0.4em;
+        opacity: 0.8;
+        transform: scale(0.7);
+    }
+    position: relative;
+    height: 60px;
+    &:after {
+        content: '';
+        position: absolute;
+        display: block;
+        bottom: 0;
+        height: 500%;
+        left: -10%;
+        right: -10%;
+        
+        @include gradient(0%, 100%);
+        transform: rotate($degrees);
+        // transform: rotate($degrees);
+        z-index: -1;
+    }
+}
+
+.follow {
+    margin-top: $default-margin*3;
+}
+
+.social {
+    padding: 0;
+    padding-bottom: $default-padding*2;
+    margin: 0;
+    li {
+        letter-spacing: 0.8px;
+        line-height: 26px;    
+        margin: $default-margin/2 0;    
+    }
+}
+
+.link {
+    &.facebook {
+        &:after {
+            background: #3b5998;
+        }
+    }
+
+    &.twitter {
+        &:after {
+            background: #55acee;
+        }
+    }
+
+    &.linkedin {
+        &:after {
+            background: #007bb5;
+        }
+    }
+
+    &.spotify {
+        &:after {
+            background: #00e461;
+        }
+    }
+
+    &.lastfm {
+        &:after {
+            background: #B90000;
+        }
+    }
+
+    &.github {
+        &:after {
+            background: #000;
+        }
+    }
+}
+
+// This disables <br> tag in mobile devices.
+.wrap-mobile {
+    display: block;
+    @media screen and (min-width: 480px) {
+        display: none;
+    }
+}
+
+.replace {
+    display: inline-block;
+    position: relative;
+    vertical-align: bottom;
+
+    &:before {
+        vertical-align: bottom;
+        height: 2px;
+        position: absolute;
+        content: "";
+        bottom: 0;
+        left: -3px;
+        right: -3px;
+        display: block;
+        background: $color-white;
+        @include transition(0.5s);
+        opacity: 1;
+        z-index: 1;
+    }
+}
+
+
+.ityped-cursor {
+    position: relative;
+    top: 6px;
+    left: 2px;
+    font-size: 1.5em;
+    opacity: 1;
+    -webkit-animation: blink 0.4s infinite;
+    -moz-animation: blink 0.4s infinite;
+    animation: blink 0.4s infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes blink {
+    100% {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes blink {
+    100% {
+        opacity: 0;
+    }
+}
+
+.footer {
+    @include gradient(0%, 100%);
+    width: 100%;
+    height: 60px;
+}

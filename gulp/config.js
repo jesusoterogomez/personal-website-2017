@@ -4,7 +4,8 @@ var src = './src';
 module.exports = {
     vars: {
         dest: dest,
-        src: src
+        src: src,
+        error: null
     },
     clean: {
         target: dest
@@ -26,14 +27,14 @@ module.exports = {
     },
     // @see : https://www.browsersync.io/docs/options/
     sync: {
-        port: 8080,
+        port: 8000,
         // Open the localhost URL
         open: "local",
         // management UI for connected devices.
         ui: {
-            port: 8888,
+            port: 8008,
             weinre: {
-                port: 9090
+                port: 9009
             }
         },
         server: {
@@ -51,6 +52,19 @@ module.exports = {
         logFileChanges: true,
         // Don't show any notifications in the browser.
         notify: false
+    },
+    browserify: {
+        settings: {
+            transform: ['babelify'],
+            extensions: ['.js', '.json'],
+            paths: [
+                "./node_modules",
+                "./src/js/"
+            ]
+        },
+        src: src + '/js/index.js',
+        dest: dest + '/js',
+        outputName: 'index.js'
     },
     scripts: {
         src: src + '/js/**/*.*',
@@ -74,10 +88,18 @@ module.exports = {
         src: 'src/images/**/**.*',
         dest: dest + '/images'
     },
+    fonts: {
+        src: ['src/fonts/**/**.*', 'node_modules/font-awesome/fonts/*.*'],
+        dest: dest + '/fonts'
+    },
     watch: {
         styles: {
             src: src + '/styles/**/*.{sass,scss,css}',
             tasks: ['reload:styles']
+        },
+        scripts: {
+            src: src + '/js/**/*.{js,json}',
+            tasks: ['reload:scripts']
         },
         html: {
             src: 'src/**/**.html',
