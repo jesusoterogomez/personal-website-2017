@@ -26,13 +26,20 @@ $degrees: 4deg;
 /** 1: Default Styling
 =========================================================*/
 
-body {
+html {
+    width: 100%;
+    position: relative;
     overflow-x: hidden;
+}
+
+body {
+    position: relative;
+    overflow-x: hidden;
+    width: 100%;
     background: #2C3250;
     color: #FFF;
     font-family: $gotham-medium;
     box-sizing: border-box;
-    position: relative;
 }
 
 // Normalize a tags
@@ -50,19 +57,27 @@ a.link {
     margin: 0 2px; 
     padding: 0 1px;
     @include transition(0.2s);
+
     &:after {
         @include transition(0.2s);
+        @include gradient(0%, 100%);
         position: absolute;
-        bottom: 0;
         left: -3px;
         right: -3px;
-        top: -3px;
+        top: -1px;
         content: "";
         display: block;
-        transform: scale(1, 0.15);
-        opacity: 0.5;
         transform-origin: center bottom;
-        @include gradient(0%, 100%);
+
+        opacity: 1;
+        z-index: -1;
+        transform: scale(1, 0.15);
+        bottom: -2px;
+        @media screen and (min-width: 480px) {
+            bottom: 0;
+            opacity: 0.2;
+            transform: scale(1, 0.1);
+        }
     }
 
     &:before {
@@ -75,8 +90,12 @@ a.link {
         display: block;
         background: $color-white;
         @include transition(0.5s);
-        opacity: 1;
         z-index: 1;
+
+        opacity: 0;
+        @media screen and (min-width: 480px) {
+            opacity: 1;
+        }
     }
 
     &:hover {
@@ -258,6 +277,36 @@ section {
             background: #000;
         }
     }
+
+    &.stackoverflow {
+        &:after {
+            background: #F48024;
+        }
+    }
+
+    &.penneo {
+        i {
+            font-size: 0.9em;
+            position: relative;
+            left: 1px;
+            top: 2px;
+        }
+        &:after {
+            background: #34D298;
+        }
+    }
+
+    &.mail {
+        &:after {
+            transform: scale(1, 1);
+            bottom: 0;
+            @media screen and (min-width: 480px) {
+                bottom: 0;
+                opacity: 0.2;
+                transform: scale(1, 0.1);
+            }
+        }
+    }
 }
 
 // This disables <br> tag in mobile devices.
@@ -324,4 +373,14 @@ section {
     @include gradient(0%, 100%);
     width: 100%;
     height: 60px;
+}
+
+.penneo-logo {
+    padding-right: 4px !important;
+    
+    i {
+        font-size: 0.9em;
+        letter-spacing: -4px;
+    }
+
 }

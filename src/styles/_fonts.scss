@@ -31,5 +31,51 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'penneo';
+  src:url('../fonts/penneo.eot?-gsv8ao');
+  src:url('../fonts/penneo.eot?#iefix-gsv8ao') format('embedded-opentype'),
+    url('../fonts/penneo.ttf?-gsv8ao') format('truetype'),
+    url('../fonts/penneo.woff?-gsv8ao') format('woff'),
+    url('../fonts/penneo.svg?-gsv8ao#penneo') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+[class^="penneo-icon-"], [class*=" penneo-icon-"] {
+  font-family: 'penneo';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.penneo-icon-e2:before {
+  content: "\e900";
+}
+.penneo-icon-n1:before {
+  content: "\e901";
+}
+.penneo-icon-n2:before {
+  content: "\e902";
+}
+.penneo-icon-o:before {
+  content: "\e903";
+}
+.penneo-icon-p:before {
+  content: "\e904";
+}
+.penneo-icon-e1:before {
+  content: "\e905";
+}
+
+
 $gotham-medium: 'Gotham Medium', sans-serif;
 $gotham-light: 'Gotham Light', sans-serif;
