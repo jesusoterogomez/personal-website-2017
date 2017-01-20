@@ -26,7 +26,6 @@ $degrees: 4deg;
 
 /** 1: Default Styling
 =========================================================*/
-
 html {
     width: 100%;
     position: relative;
@@ -122,7 +121,12 @@ a.link {
 // However, the current version of this website has a very simple and consistent html layout.
 // So, this will not cause unexpected side effects.
 section {
-    padding: $default-padding $default-padding*2;
+    padding: $default-padding;
+
+    @media screen and (min-width: 480px) {
+        padding: $default-padding $default-padding*2;
+    }
+
     margin: 0 auto;
     max-width: 580px;
     h4 {
