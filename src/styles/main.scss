@@ -20,6 +20,7 @@ $degrees: 4deg;
 @import "./fonts"; // Imports CSS Fonts, such as Google fonts
 @import "./normalize"; // Normalizes CSS for a Browser Compatible CSS Baseline
 @import "./mixins";
+@import "./animations";
 @import "./variables";
 @import "./components/all";
 
@@ -34,6 +35,7 @@ html {
 
 body {
     position: relative;
+    text-select: none;
     overflow-x: hidden;
     width: 100%;
     background: #2C3250;
@@ -42,14 +44,15 @@ body {
     box-sizing: border-box;
 }
 
-// Normalize a tags
+// Override default styling for <a> tags
 a {
     color: $color-white;
     text-decoration: none;
+    user-select: none;
 }
 
+// Define custom link style with hover states.
 a.link {
-    // @include color-gradient(0%, 100%)
     color: $color-white;
     text-decoration: none;
     position: relative;
@@ -57,6 +60,7 @@ a.link {
     margin: 0 2px; 
     padding: 0 1px;
     @include transition(0.2s);
+    user-select: none;
 
     &:after {
         @include transition(0.2s);
@@ -68,7 +72,6 @@ a.link {
         content: "";
         display: block;
         transform-origin: center bottom;
-
         opacity: 1;
         z-index: -1;
         transform: scale(1, 0.15);
@@ -115,28 +118,9 @@ a.link {
     }
 }
 
-h4 + p {
-    margin-top: $default-margin/2;
-}
-
-p {
-    margin: $default-margin*1.5 0;
-    // line-height: 1.7em;
-    font-family: $gotham-medium;
-    font-size: 18px;
-    color: #FFFFFF;
-    letter-spacing: 0.8px;
-    line-height: 28px;
-}
-
-.content {
-    box-sizing: border-box;
-    font-family: $gotham-medium;
-    line-height: 120%;
-    position: relative;
-    width: 100%;
-}
-
+// Usually, global selectors such as these should not be used.
+// However, the current version of this website has a very simple and consistent html layout.
+// So, this will not cause unexpected side effects.
 section {
     padding: $default-padding $default-padding*2;
     margin: 0 auto;
@@ -147,6 +131,28 @@ section {
         font-size: 10pt;
         margin: 0;
     }
+
+    h4 + p {
+        margin-top: $default-margin/2;
+    }
+
+    p {
+        margin: $default-margin*1.5 0;
+        font-family: $gotham-medium;
+        font-size: 18px;
+        color: #FFFFFF;
+        letter-spacing: 0.8px;
+        line-height: 28px;
+    }
+
+}
+
+.content {
+    box-sizing: border-box;
+    font-family: $gotham-medium;
+    line-height: 120%;
+    position: relative;
+    width: 100%;
 }
 
 
@@ -162,6 +168,7 @@ section {
         top: 40px;
         height: 2px;
         transform: rotate(-($degrees));
+        @include animation('intersection-inverse 55s -10s infinite alternate');
         @include gradient(0%, 100%);
     }
 
@@ -172,6 +179,7 @@ section {
         width: 150%;
         left: -25%;
         transform: rotate($degrees);
+        @include animation('intersection 50s infinite alternate');
         @include gradient(0%, 100%);
         height: 2px;
     }
@@ -179,23 +187,27 @@ section {
     &.variation {
         &:after {
             top: 60px;
+            @include animation('intersection-inverse 55s -12s infinite alternate');
+        }
+        &:before {
+            @include animation('intersection 45s infinite alternate');
         }
     }
 }
-
 
 .single-line {
     position: relative;
     padding: $default-padding*4;
     &:before {
+        @include gradient(0%, 100%);
+        @include animation('intersection 25s infinite alternate');
         position: absolute;
         content: '';
         display: block;
         width: 150%;
         left: -25%;
-        transform: rotate($degrees);
-        @include gradient(0%, 100%);
         height: 2px;
+        transform: rotate($degrees);
     }
 }
 
@@ -211,6 +223,7 @@ section {
     position: relative;
     height: 60px;
     &:after {
+        @include gradient(0%, 100%);
         content: '';
         position: absolute;
         display: block;
@@ -218,10 +231,7 @@ section {
         height: 500%;
         left: -10%;
         right: -10%;
-        
-        @include gradient(0%, 100%);
         transform: rotate($degrees);
-        // transform: rotate($degrees);
         z-index: -1;
     }
 }
@@ -241,6 +251,7 @@ section {
     }
 }
 
+// Color overrides for link hover styles.
 .link {
     &.facebook {
         &:after {
@@ -295,11 +306,13 @@ section {
             background: #34D298;
         }
     }
-
+    
     &.mail {
         &:after {
             transform: scale(1, 1);
             bottom: 0;
+
+            // Automatically show the hover state for mobile, to highlight CTA.
             @media screen and (min-width: 480px) {
                 bottom: 0;
                 opacity: 0.2;
@@ -317,6 +330,7 @@ section {
     }
 }
 
+// Fixes positioning when auto text is not displayed & adds underline to written text.
 .replace {
     display: inline-block;
     position: relative;
@@ -338,49 +352,19 @@ section {
     }
 }
 
-
+// Vendor: ityped. Used to display a pulsing caret for the self appearing text.
 .ityped-cursor {
     position: relative;
     top: 6px;
     left: 2px;
     font-size: 1.5em;
     opacity: 1;
-    -webkit-animation: blink 0.4s infinite;
-    -moz-animation: blink 0.4s infinite;
-    animation: blink 0.4s infinite;
-    animation-direction: alternate;
+    @include animation('blink 0.45s infinite alternate');
 }
 
-@keyframes blink {
-    100% {
-        opacity: 0;
-    }
-}
-
-@-webkit-keyframes blink {
-    100% {
-        opacity: 0;
-    }
-}
-
-@-moz-keyframes blink {
-    100% {
-        opacity: 0;
-    }
-}
 
 .footer {
     @include gradient(0%, 100%);
     width: 100%;
-    height: 60px;
-}
-
-.penneo-logo {
-    padding-right: 4px !important;
-    
-    i {
-        font-size: 0.9em;
-        letter-spacing: -4px;
-    }
-
+    height: 10px;
 }

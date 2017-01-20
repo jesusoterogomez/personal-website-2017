@@ -142,3 +142,55 @@
     }
 }
 
+
+// Animation
+// Write SCSS function to randomize animation durations and duration offsets
+.projects {
+    .item-container:nth-child(1) {
+        .item-content {
+            &:after {
+                @include animation('project-item-inverse 35s -10s infinite alternate');
+            }
+
+            &:before {
+                @include animation('project-item 45s -5s infinite alternate');
+            }
+        }
+    }
+
+    .item-container:nth-child(2) {
+        .item-content {
+            &:after {
+                @include animation('project-item-inverse 45s -10s infinite alternate');
+            }
+
+            &:before {
+                @include animation('project-item 35s -10s infinite alternate');
+            }
+        }
+    }
+
+    .item-container:nth-child(3) {
+        .item-content {
+            &:after {
+                @include animation('project-item-inverse 45s -20s infinite alternate');
+            }
+
+            &:before {
+                @include animation('project-item 35s -8s infinite alternate');
+            }
+        }
+    }
+
+    .item-container:nth-child(4) {
+        .item-content {
+            &:after {
+                @include animation('project-item-inverse 40s infinite alternate');
+            }
+
+            &:before {
+                @include animation('project-item 35s -5s infinite alternate');
+            }
+        }
+    }
+}
